@@ -1,0 +1,62 @@
+<app-header></app-header>
+<div class="login-page">
+    <section class="h-100">
+      <div class="container h-100">
+        <div class="row justify-content-md-center h-100">
+          <div class="card-wrapper">
+              <div *ngFor="let alert of alerts">
+                <ngb-alert *ngIf="alert.show" [type]="alert.type" (close)="closeAlert(alert)" >{{ alert.message }}</ngb-alert>
+              </div>
+            <div class="brand">
+            </div>
+            <div class="card fat">
+              <div class="card-body">
+                <h4 class="card-title">Register</h4>
+                <form [formGroup]="form">
+                 
+                  <div class="form-group">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" class="form-control" name="name" formControlName="name" required autofocus>
+                  </div>
+  
+                  <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input id="phone" type="phone" class="form-control" name="phone" formControlName="phone" autofocus>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email">E-Mail Address</label>
+                    <input id="email" type="email" class="form-control" name="email" formControlName="email" required>
+                  </div>
+  
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" class="form-control" name="password" formControlName="password" required data-eye>
+                  </div>
+  
+                  <div class="form-group">
+                    <label>
+                      <input type="checkbox" name="aggree" value="1"> I agree to the Terms and Conditions
+                    </label>
+                  </div>
+  
+                  <div class="form-group no-margin">
+                    <button type="submit" class="btn btn-primary btn-block" [disabled]="!form.valid" (click)="signUp()">
+                      Register
+                    </button>
+                  </div>
+                  <div class="margin-top20 text-center">
+                    Already have an account? <a routerLink="/f1/signin">Login</a>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="footer">
+              Copyright &copy; 2018
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {{signUpRequest.name}}, {{signUpRequest.email}}, {{signUpRequest.phone}}, {{signUpRequest.password}}
+  </div>

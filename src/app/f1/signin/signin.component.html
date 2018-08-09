@@ -1,0 +1,49 @@
+<app-header></app-header>
+<div class="login-page">
+<section class="h-100">
+		<div class="container h-100">
+			<div class="row justify-content-md-center h-100">
+				<div class="card-wrapper">
+						<div *ngFor="let alert of alerts">
+							<ngb-alert *ngIf="alert.show" [type]="alert.type" (close)="closeAlert(alert)" >{{ alert.message }}</ngb-alert>
+						</div>
+          			<div class="brand"></div>
+					<div class="card fat">
+						<div class="card-body">
+							<h4 class="card-title">Login</h4>
+							<form method="POST">
+							 
+								<div class="form-group">
+									<label for="email">E-Mail Address</label>
+
+									<input id="email" type="email" class="form-control" name="email" value="" [(ngModel)]="signInRequest.email" required autofocus>
+								</div>
+
+								<div class="form-group">
+									<label for="password">Password
+										<!-- <a routerLink="/forgotpassword" class="float-right">
+											Forgot Password?
+										</a> -->
+									</label>
+									<input id="password" type="password" class="form-control" name="password" [(ngModel)]="signInRequest.password" required>
+								</div>
+
+								<div class="form-group no-margin">
+									<button type="submit" class="btn btn-primary btn-block" (click)="signIn()">
+										Login
+									</button>
+								</div>
+								<div class="margin-top20 text-center">
+									Don't have an account? <a routerLink="/f1/signup">Create One</a>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="footer">
+						Copyright &copy; 2018
+					</div>
+				</div>
+			</div>
+		</div>
+  </section>
+</div>

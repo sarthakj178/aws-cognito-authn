@@ -1,4 +1,4 @@
 export class SignInRequest {
-    username: string;
+    email: string;
     password: string;
 }
