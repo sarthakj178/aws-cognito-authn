@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'; 
 
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
@@ -29,6 +30,7 @@ import { DashboardComponent as F1DashboardComponent} from './f1/dashboard/dashbo
     ReactiveFormsModule,
     AppRoutingModule,
     NgbModule.forRoot(),
+    HttpClientModule,
   ],
   providers: [
     { provide: 'location', useValue: location },

@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { Observable, Observer } from '../../../node_modules/rxjs';
 import { SignUpRequest } from '../model/signuprequest';
 import { SignInRequest } from '../model/signinrequest';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class AuthenticationService {
   userPool: CognitoUserPool;
 
   constructor(
+    private httpClient: HttpClient,
     @Inject('location') private location: Location,
   ) { 
     this.userPool = new CognitoUserPool({
@@ -106,17 +108,12 @@ export class AuthenticationService {
             console.error(error);
             observer.error(error);
           } else {
-            cognitoUser.getUserAttributes((error, result) => {
-              if (error) {
-                console.error(error);
-                observer.error(error);
-              } else {
-                var output = result.reduce((obj, key) => {
-                  obj[key.getName()] = key.getValue();
-                  return obj;
-                }, {});
-                console.log(output);
-                observer.next(output);
+            let httpOptions = {
+              headers: new HttpHeaders({ 'sj-auth-token': session.idToken.jwtToken }),
+            };
+            this.httpClient.post("https://api.sarthakj178.com/validate", "{}", httpOptions).subscribe(result => {
+              if ('data' in result) {
+                observer.next(result['data']);
                 observer.complete();
               }
             });

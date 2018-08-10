@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
         this.authenticationService.getUserAttributes().subscribe(userAttributes => {
           this.profile.email = userAttributes.email;
           this.profile.name = userAttributes.name;
-          this.profile.phone = userAttributes.phone_number;
+          this.profile.phone = userAttributes.phone;
         })
       }
     });
