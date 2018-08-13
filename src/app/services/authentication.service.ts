@@ -1,5 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { CognitoUserPool, CookieStorage, CognitoUserAttribute, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
+import { CognitoAuth } from 'amazon-cognito-auth-js';
 import { environment } from '../../environments/environment';
 import { Observable, Observer } from '../../../node_modules/rxjs';
 import { SignUpRequest } from '../model/signuprequest';
@@ -11,6 +12,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class AuthenticationService {
   userPool: CognitoUserPool;
+  googleAuth: CognitoAuth;
 
   constructor(
     private httpClient: HttpClient,
@@ -21,6 +23,17 @@ export class AuthenticationService {
       ClientId: environment._CLIENT_ID,
       Storage: new CookieStorage({secure: false, domain: this.location.hostname}),
     });
+    this.googleAuth = new CognitoAuth ({
+      ClientId : environment._CLIENT_ID,
+      AppWebDomain : environment._AUTH_CUSTOM_DOMAIN,
+      TokenScopesArray : ['phone', 'email', 'profile','openid'],
+      RedirectUriSignIn :  environment._REDIRECT_SIGN_IN_URI,
+      RedirectUriSignOut : environment._REDIRECT_SIGN_OUT_URI,
+      IdentityProvider : 'Google',
+      UserPoolId : environment._USER_POOL_ID,
+      Storage: new CookieStorage({secure: false, domain: this.location.hostname}),
+    });
+    this.googleAuth.useCodeGrantFlow();
   }
 
   signUp(signUpRequest: SignUpRequest) : Observable<any> {
@@ -50,6 +63,43 @@ export class AuthenticationService {
           observer.complete();
         }
       });
+    });
+  }
+
+  signInWithGoogle() : Observable<any> {
+    return Observable.create((observer: Observer<any>) => {
+      this.googleAuth.userhandler = {
+        onSuccess: session => {
+          console.log("sign in success", session);
+          observer.next(true);
+          observer.complete();
+        },
+        onFailure: err => {
+          console.error("Error!", err);
+          this.googleAuth.clearCachedTokensScopes();
+          observer.next(false);
+          observer.complete();
+        }
+      };
+      this.googleAuth.getSession();
+    });
+  }
+  validateAndSaveGoogleAuthToken(): Observable<Boolean> {
+    return Observable.create((observer: Observer<any>) => {
+      this.googleAuth.userhandler = {
+        onSuccess: session => {
+          console.log("validate token success", session);
+          observer.next(true);
+          observer.complete();
+        },
+        onFailure: err => {
+          console.error("Error!", err);
+          this.googleAuth.clearCachedTokensScopes();
+          observer.next(false);
+          observer.complete();
+        }
+      };
+      this.googleAuth.parseCognitoWebResponse(window.location.href);
     });
   }
 
@@ -88,7 +138,7 @@ export class AuthenticationService {
             observer.next(false);
             observer.complete();
           }
-          console.log(session, session.isValid(), session.isAuthenticated);
+          console.log(session, session.isValid());
           observer.next(session.isValid());
           observer.complete();
         });
@@ -115,6 +165,8 @@ export class AuthenticationService {
               if ('data' in result) {
                 observer.next(result['data']);
                 observer.complete();
+              } else {
+                observer.error(false);
               }
             });
           }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { SignUpRequest } from '../../model/signuprequest';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication.service';
-import { Router } from '../../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -64,6 +63,31 @@ export class SignUpComponent implements OnInit {
     } else {
       // validate all form fields
     }
+  }
+  signUpWithGoogle() {
+    this.authenticationService.signInWithGoogle().subscribe(result => {
+      console.log("sign up success", result);
+      let alert = {
+        type: 'success',
+        message: 'Successfully signed up!',
+        show: true,
+      }
+      this.alerts.push(alert);
+      setTimeout(() => this.closeAlert(alert), 5000);
+    }, err => {
+      console.error(err);
+      let msg = "Error while Signing up!";
+      if (err.code == 'UsernameExistsException') {
+        msg = "A user with this email Address already exists";
+      }
+      let alert = {
+        type: 'danger',
+        message: msg,
+        show: true,
+      }
+      this.alerts.push(alert);
+      setTimeout(() => this.closeAlert(alert), 5000);
+    });
   }
   public closeAlert(alert: any) {
     const index: number = this.alerts.indexOf(alert);

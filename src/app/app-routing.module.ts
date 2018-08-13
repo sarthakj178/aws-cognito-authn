@@ -7,6 +7,7 @@ import { SignInComponent as F1SignInComponent} from './f1/signin/signin.componen
 import { SignUpComponent as F1SignUpComponent } from './f1/signup/signup.component';
 import { IndexComponent as F1IndexComponent } from './f1/index/index.component';
 import { DashboardComponent as F1DashboardComponent} from './f1/dashboard/dashboard.component';
+import { OauthComponent } from './oauth/oauth.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -15,10 +16,11 @@ const routes: Routes = [
   { path: 'f1/signin', component: F1SignInComponent },
   { path: 'f1/signup', component: F1SignUpComponent },
   { path: 'f1/dashboard', component: F1DashboardComponent },
+  { path: 'f1/oauth', component: OauthComponent },
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes, {useHash: true}) ],
+  imports: [ RouterModule.forRoot(routes) ],
   exports: [ RouterModule ]
 })
 export class AppRoutingModule { }

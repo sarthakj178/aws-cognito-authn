@@ -44,6 +44,9 @@
                     <button type="submit" class="btn btn-primary btn-block" [disabled]="!form.valid" (click)="signUp()">
                       Register
                     </button>
+                    <button class="btn btn-primary btn-block" (click)="signUpWithGoogle()">
+                      Sign Up with Google
+                    </button>
                   </div>
                   <div class="margin-top20 text-center">
                     Already have an account? <a routerLink="/f1/signin">Login</a>

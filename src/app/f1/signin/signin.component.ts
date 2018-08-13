@@ -46,6 +46,26 @@ export class SignInComponent implements OnInit {
 
     });
   }
+  signInWithGoogle() {
+    this.authenticationService.signInWithGoogle().subscribe(result => {
+      console.log(result);
+      this.router.navigate(['/f1/dashboard']);
+    }, error => {
+      console.error(error);
+      let msg = "Error while Signing in!";
+      if (error.code == "NotAuthorizedException") {
+        msg = "Invalid Email Address/password!";
+      }  
+      let alert = {
+        type: 'danger',
+        message: msg,
+        show: true,
+      }
+      this.alerts.push(alert);
+      setTimeout(() => this.closeAlert(alert), 5000);
+
+    });
+  }
   public closeAlert(alert: any) {
     const index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);

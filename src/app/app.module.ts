@@ -13,6 +13,7 @@ import { SignInComponent as F1SignInComponent } from './f1/signin/signin.compone
 import { SignUpComponent as F1SignUpComponent } from './f1/signup/signup.component';
 import { HeaderComponent as F1HeaderComponent} from './f1/header/header.component';
 import { DashboardComponent as F1DashboardComponent} from './f1/dashboard/dashboard.component';
+import { OauthComponent } from './oauth/oauth.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { DashboardComponent as F1DashboardComponent} from './f1/dashboard/dashbo
     F1IndexComponent,
     F1HeaderComponent,
     F1DashboardComponent,
+    OauthComponent,
   ],
   imports: [
     BrowserModule,
