@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SignUpRequest } from '../../model/signuprequest';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication.service';
+import { Router } from '../../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -20,7 +21,14 @@ export class SignUpComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder, 
     private authenticationService: AuthenticationService,
-  ) { }
+    private router: Router,
+  ) { 
+    this.authenticationService.isAuthenticated().subscribe(isAuthenticated => {
+      if (isAuthenticated) {
+        this.router.navigate(['/f1/dashboard']);
+      }
+    })
+  }
 
   ngOnInit() {
     this.form = this.formBuilder.group({

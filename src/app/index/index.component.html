@@ -1,32 +1,19 @@
 <nav class="navbar navbar-expand-sm bg-dark">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/f1">FLOW 1</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="">FLOW 2 (WIP)</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="">FLOW 3 (WIP)</a>
-      </li>
-    </ul>
 </nav>    
     <section class="h-100">
       <div class="container h-100">
           
-        <h3>Flow 1: Simple flow without email/phone verification</h3>
-        Run this flow <a routerLink="/f1">here</a>
+        <h3>Simple flow without email/phone verification</h3>
+        Run this flow <a routerLink="/f1/signup">here</a>
         <ul>
           <li>Users sign up with their email address. Phone number is optional.</li>
           <li>No verification of email address or phone number is done. </li>
           <li>Users are allowed to sign in with their email address without any verification.</li>
           <li>Auth Tokens are persisted as cookies which are used to remember the user across page refreshes and tab switches.</li>
           <li>Phone number, Name and password are displayed after the user signs in.</li>
-          <li>Is unauthenticated users try to access a secure url (like /f1/dashboard, they are redirected to the corresponding sign in page)</li>
+          <li>If unauthenticated users try to access a secure url (like /f1/dashboard, they are redirected to the corresponding sign in page)</li>
+          <li>Sign-up/Sign-in with Google is also enabled</li>
         </ul>
-        <h3>Flow 2: Email/phone verification after sign up</h3>
-        WIP
-        <h3>Flow 3: Sign up with any one of Email or phone, verification after sign up</h3>
-        WIP
+        <img src="assets/img/CognitoAuthnF1.png" />
       </div>
     </section>
