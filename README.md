@@ -3,7 +3,7 @@
 Angular 6 based web app which connects to AWS Cognito for registering users.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.1.
 
-[Running Application](http://sarthakj178.com/aws-cognito-authn/).
+[Running Application](https://sarthakj178.com/aws-cognito-authn/).
 
 ## Development server
 
